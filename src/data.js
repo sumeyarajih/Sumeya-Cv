@@ -4,15 +4,15 @@
    ------------------------------------------------------------------ */
 
 export const profile = {
-  name: "Your Name",
+  name: "Sumeya Rajih Abass",
   title: "Software Engineer — Flutter · Full-Stack · UI/UX",
-  location: "Addis Ababa, Ethiopia",
+  location: "Dire Dawa, Ethiopia",
   openTo: "Open to relocation — Dubai, UAE & remote roles",
-  email: "you@email.com",
-  phone: "+251 9XX XXX XXX",
-  linkedin: "linkedin.com/in/yourname",
-  github: "github.com/yourname",
-  website: "yourportfolio.com",
+  email: "sumeyarajih@gmail.com",
+  phone: "+251 960989364",
+  linkedin: "https://www.linkedin.com/in/sumeya-rajih-1130a52b5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+  github: "https://github.com/sumeyarajih",
+  // website: "yourportfolio.com",
 };
 
 export const summary =
@@ -64,8 +64,8 @@ export const experience = [
 export const education = {
   degree: "BSc in Software Engineering",
   school: "Your University",
-  period: "20XX — 2026 (Expected)",
-  gpa: "GPA: 3.X / 4.0",
+  period: "2021 — 2026 (Expected)",
+  gpa: "GPA: 3.62",
 };
 
 export const certifications = [
