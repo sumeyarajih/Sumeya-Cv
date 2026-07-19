@@ -6,12 +6,12 @@ export default {
       colors: {
         cv: {
           bg: "#FDF2F8",
-          sidebar: "#831843",
-          sidebarSoft: "#9D174D",
-          accent: "#EC4899",
-          accentSoft: "#F472B6",
-          accentPale: "#FBCFE8",
-          accentLine: "#F9A8D4",
+          sidebar: "#b46a45",
+          sidebarSoft: "#b46a45",
+          accent: "#b46a45",
+          accentSoft: "#f2d4af",
+          accentPale: "#f2d4af",
+          accentLine: "#f2d4af",
           textDark: "#1F2937",
           textBody: "#374151",
           textMuted: "#6B7280",
