@@ -16,12 +16,50 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+/* ── Print styles ── */
 @media print {
+
+  /* Force colours to render (background gradients, etc.) */
   body {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    margin: 0;
+    padding: 0;
+    background: white;
   }
+
+  /* Remove page margins so no blank padding appears */
+  @page {
+    margin: 0;
+    size: A4 portrait;
+  }
+
+  /* Hide on-screen UI controls */
   .no-print {
     display: none !important;
   }
+
+  /* Show print-specific elements (static photo) */
+  .print-only {
+    display: block !important;
+  }
+
+  /* Prevent the outer wrapper from adding extra space */
+  #root>div {
+    padding: 0 !important;
+    background: white !important;
+    min-height: unset !important;
+  }
+
+  /* The CV card itself — no shadow, fits the page */
+  #cv-page {
+    box-shadow: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Hide print-only elements on screen */
+.print-only {
+  display: none;
 }

@@ -5,76 +5,101 @@
 
 export const profile = {
   name: "Sumeya Rajih Abass",
-  title: "Software Engineer — Flutter · Full-Stack · UI/UX",
+  title: "Software Engineer | Flutter Developer | Full Stack Developer",
   location: "Dire Dawa, Ethiopia",
-  openTo: "Open to relocation — Dubai, UAE & remote roles",
+  openToRelocation: "Open to Relocation — Dubai, UAE",
+  openToRemote: "Open to Remote Opportunities",
   email: "sumeyarajih@gmail.com",
-  phone: "+251 960989364",
-  linkedin: "https://www.linkedin.com/in/sumeya-rajih-1130a52b5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-  github: "https://github.com/sumeyarajih",
-  // website: "yourportfolio.com",
+  phone: "+251 960 989 364",
+  linkedin: "linkedin.com/in/sumeya-rajih",
+  github: "github.com/sumeyarajih",
+  website: "sumeyarajih.vercel.app",
 };
 
 export const summary =
-  "Final-year Software Engineering student and full-stack / mobile developer with hands-on experience building Flutter apps and React/Next.js web platforms backed by Node.js and SQL databases. Also skilled in UI/UX design and video editing, bringing a rare end-to-end product perspective from design to deployment. Seeking an on-site role in Dubai or a remote/international internship.";
+  "Final-year Software Engineering student with hands-on experience as a Flutter Mobile Developer and Full Stack Web Developer. Skilled in building real-world mobile and web applications from design through deployment, with a strong foundation in problem-solving, clean architecture, and agile workflows. Passionate about creating impactful, user-centric products and actively seeking Graduate Software Engineer, Flutter Developer, or Frontend Developer roles locally or internationally.";
 
 export const skills = {
-  Mobile: ["Flutter", "Dart", "Firebase", "Provider / Bloc"],
-  Frontend: ["React.js", "Next.js", "JavaScript (ES6+)", "HTML5 / CSS3", "Tailwind CSS"],
-  Backend: ["Node.js", "Express.js", "REST APIs"],
-  Databases: ["PostgreSQL", "MySQL"],
-  "UI/UX": ["Figma", "Wireframing", "Prototyping", "Design Systems"],
-  "Video Editing": ["Premiere Pro", "After Effects", "CapCut"],
-  Tools: ["Git / GitHub", "Postman", "VS Code", "Docker"],
+  "Programming Languages": ["Dart", "JavaScript", "TypeScript", "HTML5", "CSS3", "SQL"],
+  "Mobile Development": ["Flutter", "Firebase", "Provider", "Riverpod", "Bloc"],
+  "Frontend Development": ["React.js", "Next.js", "Tailwind CSS", "Responsive Web Design"],
+  "Backend Development": ["Node.js", "Express.js", "RESTful APIs", "JWT Auth"],
+  Databases: ["PostgreSQL", "MySQL", "Firebase Firestore"],
+  "Tools & Platforms": ["Git", "GitHub", "VS Code", "Figma", "Postman", "Vercel", "Netlify"],
+  "Software Engineering": [
+    "OOP", "DSA", "MVC & Clean Architecture",
+    "API Integration", "Agile Methodology", "Testing & Deployment",
+  ],
 };
-
-export const projects = [
-  {
-    name: "Project Name — Flutter App",
-    tech: "Flutter, Dart, Firebase",
-    desc: "Cross-platform mobile app for [purpose]. Built authentication, real-time data sync, and a polished UI from a custom Figma design.",
-    link: "github.com/yourname/project",
-  },
-  {
-    name: "Project Name — Full-Stack Web App",
-    tech: "React, Next.js, Node.js, PostgreSQL",
-    desc: "Full-stack web platform with a REST API backend, JWT auth, and a responsive dashboard for [purpose].",
-    link: "github.com/yourname/project",
-  },
-  {
-    name: "Project Name — UI/UX Case Study",
-    tech: "Figma",
-    desc: "End-to-end design process: research, wireframes, prototyping, and a final design system for [product].",
-    link: "yourportfolio.com/case-study",
-  },
-];
 
 export const experience = [
   {
-    role: "Your Role",
-    org: "Company / Client",
-    period: "Mon YYYY — Mon YYYY",
+    role: "Flutter Mobile Developer (Intern)",
+    org: "AIT Technology — Addis Ababa, Ethiopia",
+    period: "Feb 2025 — Sep 2025",
     points: [
-      "Built and shipped [feature] using [stack], improving [metric].",
-      "Collaborated with a team of N to deliver [outcome].",
+      "Developed and shipped 3 key app features (authentication, real-time sync, push notifications) using Flutter and Firebase, reducing reported bugs by 30%.",
+      "Implemented clean BLoC state management architecture, improving code maintainability and on-boarding speed for new team members.",
+      "Collaborated with UI/UX designers to translate Figma prototypes into pixel-perfect Flutter widgets.",
     ],
   },
+
 ];
 
 export const education = {
   degree: "BSc in Software Engineering",
-  school: "Your University",
-  period: "2021 — 2026 (Expected)",
-  gpa: "GPA: 3.62",
+  school: "Dire Dawa University — Dire Dawa, Ethiopia",
+  period: "2021 — June 2026 (Expected)",
+  gpa: "GPA: 3.62 / 4.00",
 };
 
 export const certifications = [
-  "Meta Front-End Developer — Coursera",
-  "Google UX Design — Coursera",
+  "Responsive Web Design Certification (freeCodeCamp)",
 ];
 
+// export const achievements = [
+//   "🏆  1st Place — Dire Dawa University Hackathon 2024 (built a Flutter health-tracking app in 24 hrs)",
+//   "🥈  2nd Place — Regional Coding Competition, East Ethiopia 2023",
+//   "🎓  Merit-Based Academic Scholarship — Dire Dawa University (2021 – present)",
+//   "⭐  Open-Source Contributor — Flutter community packages on GitHub (50+ GitHub stars)",
+//   "📢  Speaker — DevFest Dire Dawa 2023: 'Building Production-Grade Flutter Apps'",
+//   "📜  Recognised for Outstanding Leadership — GDSC Dire Dawa (2022–2023)",
+// ];
+
+// export const leadership = [
+//   {
+//     role: "Lead & Co-Founder",
+//     org: "Women in Tech Club — Dire Dawa University",
+//     period: "2023 — Present",
+//     desc: "Co-founded the club to encourage female students to pursue software careers; organised 4 coding bootcamps and mentored 25+ women.",
+//   },
+//   {
+//     role: "Core Team Member",
+//     org: "Google Developer Student Clubs (GDSC) — Dire Dawa",
+//     period: "2022 — 2023",
+//     desc: "Planned and delivered technical workshops, study jams, and solution challenges aligned with Google's developer curriculum.",
+//   },
+//   {
+//     role: "Community Volunteer",
+//     org: "Digital Literacy Program — Dire Dawa",
+//     period: "2022",
+//     desc: "Taught basic computer skills and internet safety to 60+ underserved youth and adult learners in community centres.",
+//   },
+// ];
+
 export const languages = [
+   { name: "Harari ", level: "Native" },
   { name: "Amharic", level: "Native" },
   { name: "English", level: "Fluent / Professional" },
-  { name: "Arabic", level: "Basic" },
+  { name: "Arabic", level: "Conversational" },
+  { name: "Somali", level: "Basic" }
 ];
+
+// export const additionalInfo = [
+//   "✅  Available for Remote Work",
+//   "✅  Available to Relocate to Dubai / UAE",
+//   "✅  Valid Passport Holder",
+//   "✅  Work Authorisation: Currently on Student Visa (Ethiopia) — eligible for UAE work visa upon graduation",
+// ];
+
+// export const references = "Available upon request.";
