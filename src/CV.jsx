@@ -35,26 +35,26 @@ import {
 
 /** Sidebar section heading */
 const SideHeading = ({ children }) => (
-  <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-200 mb-2 mt-1">
+  <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-pink-200 mb-2 mt-1">
     {children}
   </h2>
 );
 
 /** Pink sidebar divider */
 const Divider = () => (
-  <div className="h-[1.5px] w-full bg-gradient-to-r from-orange-300/60 to-transparent mb-3" />
+  <div className="h-[1.5px] w-full bg-gradient-to-r from-pink-300/60 to-transparent mb-3" />
 );
 
 /** Main-area section with icon + title */
 const Section = ({ icon: Icon, title, children }) => (
   <section className="mb-5">
     <div className="flex items-center gap-2 mb-1">
-      <Icon size={14} className="text-orange-500 shrink-0" />
-      <h2 className="text-[11.5px] font-bold tracking-[0.12em] uppercase text-orange-700">
+      <Icon size={14} className="text-pink-500 shrink-0" />
+      <h2 className="text-[11.5px] font-bold tracking-[0.12em] uppercase text-pink-700">
         {title}
       </h2>
     </div>
-    <div className="h-[2px] w-full bg-gradient-to-r from-orange-300 to-transparent mb-2.5" />
+    <div className="h-[2px] w-full bg-gradient-to-r from-pink-300 to-transparent mb-2.5" />
     {children}
   </section>
 );
@@ -63,7 +63,7 @@ const Section = ({ icon: Icon, title, children }) => (
 
 export default function CV() {
   // ── State for uploaded profile photo
-  const [photoUrl, setPhotoUrl] = useState(null);
+  const [photoUrl, setPhotoUrl] = useState('/sumeya-cv-image.jpg');
   const fileInputRef = useRef(null);
   const cvRef = useRef(null);
 
@@ -75,31 +75,53 @@ export default function CV() {
     setPhotoUrl(url);
   };
 
-  // ── Handle PDF download via html2pdf.js (dynamic import)
+  // ── Handle PDF download via html2canvas + jsPDF
   const handleDownloadPdf = async () => {
-    const html2pdf = (await import("html2pdf.js")).default;
+    const html2canvas = (await import("html2canvas")).default;
+    const { jsPDF } = await import("jspdf");
     const element = cvRef.current;
-    const opt = {
-      margin: 0,
-      filename: "Sumeya_Rajih_CV.pdf",
-      image: { type: "jpeg", quality: 0.98 },
-      // scale:2 for sharp text; scrollY:0 prevents offset bugs
-      html2canvas: { scale: 2, useCORS: true, scrollY: 0, logging: false },
-      // A4 in mm — html2pdf auto-fits content height, no blank padding
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-    };
-    html2pdf().set(opt).from(element).save();
+
+    const FIXED_WIDTH = 900; // CV is always 900px wide
+    const SCALE = 3;         // high-res capture
+
+    // Force render at exactly 900 px wide — no overflow bleeding into capture
+    const canvas = await html2canvas(element, {
+      scale: SCALE,
+      useCORS: true,
+      scrollY: -window.scrollY,
+      windowWidth: FIXED_WIDTH,
+      width: FIXED_WIDTH,
+      height: element.offsetHeight,  // offsetHeight = visible layout height, no scroll overflow
+      x: 0,
+      y: 0,
+      logging: false,
+    });
+
+    const imgData = canvas.toDataURL("image/jpeg", 1.0);
+
+    // Derive PDF height from the canvas aspect ratio so there's zero blank space
+    const pdfWidth = FIXED_WIDTH;
+    const pdfHeight = Math.round((canvas.height / canvas.width) * (FIXED_WIDTH * SCALE)) / SCALE;
+
+    const pdf = new jsPDF({
+      unit: "px",
+      format: [pdfWidth, pdfHeight],
+      orientation: "portrait",
+      hotfixes: ["px_scaling"],
+    });
+    pdf.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save("Sumeya_Rajih_CV.pdf");
   };
 
   return (
-    <div className="min-h-screen bg-orange-50 flex justify-center py-8 px-4 font-body">
+    <div className="bg-pink-50 py-8 px-4 font-body overflow-x-auto">
 
       {/* ── Action Buttons (no-print) ── */}
       <div className="no-print fixed top-5 right-5 z-50 flex flex-col gap-2">
         {/* Upload Photo */}
         <button
           onClick={() => fileInputRef.current.click()}
-          className="flex items-center gap-2 bg-white border-2 border-orange-400 text-orange-700 text-sm px-4 py-2 rounded-full shadow-lg hover:bg-orange-50 active:scale-95 transition-all font-medium"
+          className="flex items-center gap-2 bg-white border-2 border-pink-400 text-pink-700 text-sm px-4 py-2 rounded-full shadow-lg hover:bg-pink-50 active:scale-95 transition-all font-medium"
         >
           <Upload size={14} />
           Upload Photo
@@ -108,7 +130,7 @@ export default function CV() {
         {/* Download PDF */}
         <button
           onClick={handleDownloadPdf}
-          className="flex items-center gap-2 bg-orange-700 text-white text-sm px-4 py-2 rounded-full shadow-lg hover:bg-orange-800 active:scale-95 transition-all font-medium"
+          className="flex items-center gap-2 bg-pink-700 text-white text-sm px-4 py-2 rounded-full shadow-lg hover:bg-pink-800 active:scale-95 transition-all font-medium"
         >
           <Download size={14} />
           Download PDF
@@ -117,7 +139,7 @@ export default function CV() {
         {/* Print */}
         <button
           onClick={() => window.print()}
-          className="flex items-center gap-2 bg--900 text-white text-sm px-4 py-2 rounded-full shadow-lg hover:bg-orange-950 active:scale-95 transition-all font-medium"
+          className="flex items-center gap-2 bg-pink-900 text-white text-sm px-4 py-2 rounded-full shadow-lg hover:bg-pink-950 active:scale-95 transition-all font-medium"
         >
           <Printer size={14} />
           Print
@@ -138,36 +160,34 @@ export default function CV() {
       <div
         ref={cvRef}
         id="cv-page"
-        className="bg-white shadow-2xl w-full max-w-[900px] flex text-gray-800"
+        className="shadow-2xl w-[900px] min-w-[900px] shrink-0 flex text-gray-800 mx-auto overflow-hidden"
+        style={{ background: "linear-gradient(to right, #ED799C 32%, white 32%)" }}
       >
 
         {/* ══════════════════ SIDEBAR — LEFT 32% ══════════════════
             Contains: Photo / Name / Title / Contact / Certifications / Languages / Additional Info
             Skills moved → right column (too heavy for sidebar)
         ══════════════════════════════════════════════════════════ */}
-        <aside
-          className="w-[32%] flex flex-col shrink-0"
-          style={{ background: "linear-gradient(160deg, #b46a45 0%, #b46a45 60%, #b46a45 100%)" }}
-        >
+        <aside className="w-[32%] flex flex-col shrink-0">
           {/* ── Photo + Name + Title ── */}
-          <div className="flex flex-col items-center pt-7 pb-5 px-5 text-center border-b border-orange-400/30">
+          <div className="flex flex-col items-center pt-7 pb-5 px-5 text-center border-b border-pink-400/30">
 
             {/* Circular photo — clickable to upload (hidden on print) */}
             <div
               onClick={() => fileInputRef.current.click()}
               title="Click to upload your photo"
-              className="no-print w-[120px] h-[120px] rounded-full border-4 border-orangek-300/70 overflow-hidden flex items-center justify-center mb-3 shadow-lg cursor-pointer hover:opacity-80 transition-opacity bg-orange-200/30"
+              className="no-print w-[120px] h-[120px] rounded-full border-4 border-pink-300/70 overflow-hidden flex items-center justify-center mb-3 shadow-lg cursor-pointer hover:opacity-80 transition-opacity bg-pink-200/30"
             >
               {photoUrl ? (
                 <img src={photoUrl} alt="Profile" className="w-full h-full object-cover" />
               ) : (
-                <User size={52} className="text-orange-200/80" />
+                <User size={52} className="text-pink-200/80" />
               )}
             </div>
 
             {/* Photo shown in print (non-interactive) */}
             {photoUrl && (
-              <div className="print-only w-[120px] h-[120px] rounded-full border-4 border-orange-300/70 overflow-hidden mb-3 shadow-lg mx-auto">
+              <div className="print-only w-[120px] h-[120px] rounded-full border-4 border-pink-300/70 overflow-hidden mb-3 shadow-lg mx-auto">
                 <img src={photoUrl} alt="Profile" className="w-full h-full object-cover" />
               </div>
             )}
@@ -175,7 +195,7 @@ export default function CV() {
             <h1 className="font-display text-[16px] font-extrabold leading-snug text-white">
               {profile.name}
             </h1>
-            <p className="text-[10px] text-orange-200 mt-1.5 leading-relaxed px-1">
+            <p className="text-[10px] text-pink-200 mt-1.5 leading-relaxed px-1">
               {profile.title}
             </p>
           </div>
@@ -189,36 +209,36 @@ export default function CV() {
               <Divider />
               <div className="space-y-1.5 text-[10.5px]">
                 <div className="flex items-start gap-2">
-                  <MapPin size={11} className="text-orange-300 shrink-0 mt-0.5" />
+                  <MapPin size={11} className="text-pink-300 shrink-0 mt-0.5" />
                   <span>{profile.location}</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <Phone size={11} className="text-orange-300 shrink-0 mt-0.5" />
+                  <Phone size={11} className="text-pink-300 shrink-0 mt-0.5" />
                   <span>{profile.phone}</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <Mail size={11} className="text-orange-300 shrink-0 mt-0.5" />
+                  <Mail size={11} className="text-pink-300 shrink-0 mt-0.5" />
                   <span className="break-all">{profile.email}</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <Linkedin size={11} className="text-orange-300 shrink-0 mt-0.5" />
+                  <Linkedin size={11} className="text-pink-300 shrink-0 mt-0.5" />
                   <span className="break-all">{profile.linkedin}</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <Github size={11} className="text-orange-300 shrink-0 mt-0.5" />
+                  <Github size={11} className="text-pink-300 shrink-0 mt-0.5" />
                   <span className="break-all">{profile.github}</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <Globe size={11} className="text-orange-300 shrink-0 mt-0.5" />
+                  <Globe size={11} className="text-pink-300 shrink-0 mt-0.5" />
                   <span className="break-all">{profile.website}</span>
                 </div>
               </div>
               {/* Availability badges */}
               <div className="mt-2.5 space-y-1.5">
-                <div className="flex items-center gap-1 bg-white/10 border border-orange-300/40 rounded-full px-2.5 py-[3px] text-[9.5px] text-orange-100">
+                <div className="flex items-center gap-1 bg-white/10 border border-pink-300/40 rounded-full px-2.5 py-[3px] text-[9.5px] text-pink-100">
                   ✈️ {profile.openToRelocation}
                 </div>
-                <div className="flex items-center gap-1 bg-white/10 border border-orange-300/40 rounded-full px-2.5 py-[3px] text-[9.5px] text-orange-100">
+                <div className="flex items-center gap-1 bg-white/10 border border-pink-300/40 rounded-full px-2.5 py-[3px] text-[9.5px] text-pink-100">
                   🌐 {profile.openToRemote}
                 </div>
               </div>
@@ -230,8 +250,8 @@ export default function CV() {
               <Divider />
               <ul className="space-y-1.5">
                 {certifications.map((c, i) => (
-                  <li key={i} className="flex gap-1.5 items-start text-[10px] text-orangek-100 leading-snug">
-                    <span className="text-orange-300 shrink-0 mt-0.5">▸</span>
+                  <li key={i} className="flex gap-1.5 items-start text-[10px] text-pinkk-100 leading-snug">
+                    <span className="text-pink-300 shrink-0 mt-0.5">▸</span>
                     <span>{c}</span>
                   </li>
                 ))}
@@ -246,7 +266,7 @@ export default function CV() {
                 {languages.map((l) => (
                   <div key={l.name} className="flex justify-between items-center">
                     <span className="text-[11px] text-white">{l.name}</span>
-                    <span className="text-[9.5px] text-orange-200 bg-white/10 rounded-full px-2 py-[1px]">
+                    <span className="text-[9.5px] text-pink-200 bg-white/10 rounded-full px-2 py-[1px]">
                       {l.level}
                     </span>
                   </div>
@@ -287,7 +307,7 @@ export default function CV() {
               {Object.entries(skills).map(([group, items]) => (
                 <div key={group} className="flex gap-2 items-start">
                   {/* Category label */}
-                  <span className="text-[10px] font-semibold text-orange-700 shrink-0 w-[130px] mt-[2px]">
+                  <span className="text-[10px] font-semibold text-pink-700 shrink-0 w-[130px] mt-[2px]">
                     {group}:
                   </span>
                   {/* Skill tags */}
@@ -295,7 +315,7 @@ export default function CV() {
                     {items.map((s) => (
                       <span
                         key={s}
-                        className="text-[9.5px] bg-orange-50 border border-orange-200 text-orange-700 rounded-full px-2 py-[1px]"
+                        className="text-[9.5px] bg-pink-50 border border-pink-200 text-pink-700 rounded-full px-2 py-[1px]"
                       >
                         {s}
                       </span>
@@ -312,14 +332,14 @@ export default function CV() {
               {experience.map((e, i) => (
                 <div key={i}>
                   <div className="flex justify-between flex-wrap gap-x-2 items-baseline">
-                    <h3 className="text-[12px] font-bold text-orange-800">{e.role}</h3>
-                    <span className="text-[10px] text-orange-400 font-medium shrink-0">{e.period}</span>
+                    <h3 className="text-[12px] font-bold text-pink-800">{e.role}</h3>
+                    <span className="text-[10px] text-pink-400 font-medium shrink-0">{e.period}</span>
                   </div>
-                  <p className="text-[10.5px] italic text-orange-500 mb-1">{e.org}</p>
+                  <p className="text-[10.5px] italic text-pink-500 mb-1">{e.org}</p>
                   <ul className="space-y-0.5">
                     {e.points.map((pt, j) => (
                       <li key={j} className="text-[11px] text-gray-600 flex gap-1.5">
-                        <span className="text-orange-400 shrink-0 mt-0.5">▸</span>
+                        <span className="text-pink-400 shrink-0 mt-0.5">▸</span>
                         <span>{pt}</span>
                       </li>
                     ))}
@@ -332,11 +352,11 @@ export default function CV() {
           {/* Education */}
           <Section icon={GraduationCap} title="Education">
             <div className="flex justify-between flex-wrap gap-x-2 items-baseline">
-              <h3 className="text-[12px] font-bold text-orange-800">{education.degree}</h3>
-              <span className="text-[10px] text-orange-400 font-medium shrink-0">{education.period}</span>
+              <h3 className="text-[12px] font-bold text-pink-800">{education.degree}</h3>
+              <span className="text-[10px] text-pink-400 font-medium shrink-0">{education.period}</span>
             </div>
             <p className="text-[11px] text-gray-600 mt-0.5">{education.school}</p>
-            <p className="text-[10.5px] text--500orange mt-0.5 font-medium">{education.gpa}</p>
+            <p className="text-[10.5px] text-pink-500 mt-0.5 font-medium">{education.gpa}</p>
           </Section>
 
           {/* Achievements — uncomment to re-enable */}

@@ -39,8 +39,9 @@ export const experience = [
     period: "Feb 2025 — Sep 2025",
     points: [
       "Developed and shipped 3 key app features (authentication, real-time sync, push notifications) using Flutter and Firebase, reducing reported bugs by 30%.",
+      "Developed the full 'Arif Academy' app with Flutter, Node.js, and PostgreSQL, including full testing implementation.",
+      "Tested system designs using Figma prototypes and translated them into pixel-perfect Flutter widgets.",
       "Implemented clean BLoC state management architecture, improving code maintainability and on-boarding speed for new team members.",
-      "Collaborated with UI/UX designers to translate Figma prototypes into pixel-perfect Flutter widgets.",
     ],
   },
 
@@ -88,7 +89,7 @@ export const certifications = [
 // ];
 
 export const languages = [
-   { name: "Harari ", level: "Native" },
+  { name: "Harari ", level: "Native" },
   { name: "Amharic", level: "Native" },
   { name: "English", level: "Fluent / Professional" },
   { name: "Arabic", level: "Conversational" },
