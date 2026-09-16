@@ -53,7 +53,11 @@ export const education = {
 };
 
 export const certifications = [
-  "Responsive Web Design Certification (freeCodeCamp)",
+  "AiCE Certification",
+  "Android Kotlin Development Fundamentals Certification",
+  "Internship Certification",
+  "Flutter Development IN Cursa with Dart Certification",
+ 
 ];
 
 // export const achievements = [
