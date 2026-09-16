@@ -91,10 +91,20 @@ export default function CV() {
       scrollY: -window.scrollY,
       windowWidth: FIXED_WIDTH,
       width: FIXED_WIDTH,
-      height: element.offsetHeight,  // offsetHeight = visible layout height, no scroll overflow
-      x: 0,
-      y: 0,
+      height: element.offsetHeight,
       logging: false,
+      onclone: (clonedDoc) => {
+        const el = clonedDoc.getElementById("cv-page");
+        if (el && el.parentElement) {
+          el.style.width = "900px";
+          el.style.minWidth = "900px";
+          el.style.maxWidth = "900px";
+          el.style.margin = "0";
+          el.parentElement.style.overflow = "visible";
+          el.parentElement.style.padding = "0";
+          el.parentElement.style.width = "auto";
+        }
+      },
     });
 
     const imgData = canvas.toDataURL("image/jpeg", 1.0);
@@ -114,7 +124,7 @@ export default function CV() {
   };
 
   return (
-    <div className="bg-pink-50 py-8 px-4 font-body overflow-x-auto">
+    <div className="bg-pink-50 py-8 px-4 font-body overflow-x-auto print:overflow-visible print:bg-transparent print:p-0">
 
       {/* ── Action Buttons (no-print) ── */}
       <div className="no-print fixed top-5 right-5 z-50 flex flex-col gap-2">
@@ -160,7 +170,7 @@ export default function CV() {
       <div
         ref={cvRef}
         id="cv-page"
-        className="shadow-2xl w-[900px] min-w-[900px] shrink-0 flex text-gray-800 mx-auto overflow-hidden"
+        className="shadow-2xl print:shadow-none w-full max-w-[900px] shrink-0 flex text-gray-800 mx-auto print:mx-0 overflow-hidden"
         style={{ background: "linear-gradient(to right, #ED799C 32%, white 32%)" }}
       >
 
@@ -234,14 +244,14 @@ export default function CV() {
                 </div>
               </div>
               {/* Availability badges */}
-              <div className="mt-2.5 space-y-1.5">
+              {/* <div className="mt-2.5 space-y-1.5">
                 <div className="flex items-center gap-1 bg-white/10 border border-pink-300/40 rounded-full px-2.5 py-[3px] text-[9.5px] text-pink-100">
                   ✈️ {profile.openToRelocation}
                 </div>
                 <div className="flex items-center gap-1 bg-white/10 border border-pink-300/40 rounded-full px-2.5 py-[3px] text-[9.5px] text-pink-100">
                   🌐 {profile.openToRemote}
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* Certifications — sidebar keeps this compact list */}

@@ -5,10 +5,10 @@
 
 export const profile = {
   name: "Sumeya Rajih Abass",
-  title: "Software Engineer | Flutter Developer | Full Stack Developer",
+  title: "Software Engineer | Flutter Developer | Full Stack Developer | UI/UX designer",
   location: "Dire Dawa, Ethiopia",
-  openToRelocation: "Open to Relocation — Dubai, UAE",
-  openToRemote: "Open to Remote Opportunities",
+  // openToRelocation: "Open to Relocation — Dubai, UAE",
+  // openToRemote: "Open to Remote Opportunities",
   email: "sumeyarajih@gmail.com",
   phone: "+251 960 989 364",
   linkedin: "linkedin.com/in/sumeya-rajih",
@@ -17,7 +17,7 @@ export const profile = {
 };
 
 export const summary =
-  "Final-year Software Engineering student with hands-on experience as a Flutter Mobile Developer and Full Stack Web Developer. Skilled in building real-world mobile and web applications from design through deployment, with a strong foundation in problem-solving, clean architecture, and agile workflows. Passionate about creating impactful, user-centric products and actively seeking Graduate Software Engineer, Flutter Developer, or Frontend Developer roles locally or internationally.";
+  "Results-driven Software Engineer with specialized expertise as a UI/UX Designer (Figma), Flutter Developer, and Full Stack Developer (Node.js, Next.js, and React). Proven ability to deliver end-to-end solutions by translating intuitive designs into robust, high-performance web and mobile applications.";
 
 export const skills = {
   "Programming Languages": ["Dart", "JavaScript", "TypeScript", "HTML5", "CSS3", "SQL"],
@@ -25,7 +25,7 @@ export const skills = {
   "Frontend Development": ["React.js", "Next.js", "Tailwind CSS", "Responsive Web Design"],
   "Backend Development": ["Node.js", "Express.js", "RESTful APIs", "JWT Auth"],
   Databases: ["PostgreSQL", "MySQL", "Firebase Firestore"],
-  "Tools & Platforms": ["Git", "GitHub", "VS Code", "Figma", "Postman", "Vercel", "Netlify"],
+  "Tools & Platforms": ["Git", "GitHub", "VS Code", "Figma", "Postman", "Vercel", ],
   "Software Engineering": [
     "OOP", "DSA", "MVC & Clean Architecture",
     "API Integration", "Agile Methodology", "Testing & Deployment",
@@ -34,17 +34,15 @@ export const skills = {
 
 export const experience = [
   {
-    role: "Flutter Mobile Developer (Intern)",
-    org: "AIT Technology — Addis Ababa, Ethiopia",
+    role: "Software Developer & UI/UX Designer",
+    org: "AIT Technology",
     period: "Feb 2025 — Sep 2025",
     points: [
-      "Developed and shipped 3 key app features (authentication, real-time sync, push notifications) using Flutter and Firebase, reducing reported bugs by 30%.",
-      "Developed the full 'Arif Academy' app with Flutter, Node.js, and PostgreSQL, including full testing implementation.",
-      "Tested system designs using Figma prototypes and translated them into pixel-perfect Flutter widgets.",
-      "Implemented clean BLoC state management architecture, improving code maintainability and on-boarding speed for new team members.",
+      "Developed the complete 'Arif Academy' application.",
+      "Conducted comprehensive system testing for the 'Arif School' platform.",
+      "Created the complete UI and UX design for the 'Arif Academy' application.",
     ],
   },
-
 ];
 
 export const education = {
